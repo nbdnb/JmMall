@@ -1,12 +1,16 @@
 <template>
-  <ul class="tomorrow">
-    <li
-      v-for="data in homeDataListTomo"
-      :key="data.id"
+  <div>
+    <ul
+      class="tomorrow"
     >
-      <a href="#"><img :src="data.image"></a>
-    </li>
-  </ul>
+      <li
+        v-for="data in homeDataListTomo"
+        :key="data.id"
+      >
+        <a href="#"><img :src="data.image"></a>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -19,7 +23,7 @@ export default {
   },
   methods: {
     getDataTom () {
-      this.$http.getHome().then(resp => {
+      this.$http.getHome(this.start).then(resp => {
         this.homeDataListTomo = resp.items.list.reduce((res, item) => {
           if (item.cid === undefined) res.push(item)
           return res

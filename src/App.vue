@@ -3,18 +3,18 @@
     <div class="main">
       <router-view @search-show='serchS()'></router-view>
     </div>
-    <footer>
-      <router-view name="footer"></router-view>
-    </footer>
+
+    <router-view name="footer"></router-view>
+
     <transition
       name="sAnimation"
       enter-active-class="animated slideInRight"
     >
-      <div class="search-mask" v-show="isShow">
+      <div class="search-mask" v-show="isShow" ref="mysearch">
         <div class="search-header">
           <i class="backhome">&#xe636;</i>
           <label>
-            <i>&#xe71c;</i>
+            <i @click="goBack">&#xe71c;</i>
             <input type="text"
               placeholder="搜索商品 分类 功效"
               @keyup="searchShowList"
@@ -58,8 +58,10 @@ export default {
   },
   methods: {
     toSearch () {
-      this.$router.push(`/search?value=${this.value}`)
-      this.isShow = false
+      if (this.value !== '') {
+        this.$router.push(`/search?value=${this.value}`)
+        this.isShow = false
+      }
     },
     serchS () {
       this.isShow = true
@@ -67,6 +69,7 @@ export default {
     searchShowList () {
       this.$http.getSearchData(this.value)
         .then(resp => {
+          resp.list.shift()
           this.searchList = resp.list
           this.isSearchShow = false
           if (this.value === '') {
@@ -78,8 +81,14 @@ export default {
     searchInit () {
       this.$http.getHomeData()
         .then(resp => {
+          resp.list.shift()
           this.searchList = resp.list
         })
+    },
+    goBack () {
+      this.isShow = false
+      // 未完成此功能
+      // this.$refs.mysearch.style.width = "80%"
     }
   }
 }
@@ -196,11 +205,6 @@ body {
   .main {
     flex: 1;
     overflow-x: hidden;
-  }
-  footer {
-    height: 50px;
-    box-sizing: border-box;
-    border-top: 1px solid #dedede;
   }
 }
 .cover-mask{

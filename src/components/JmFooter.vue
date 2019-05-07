@@ -27,6 +27,9 @@ export default {
 <style lang='scss' scoped>
   ul{
     display: flex;
+    height: 50px;
+    box-sizing: border-box;
+    border-top: 1px solid #dedede;
     li{
       width: 25%;
       height: 50px;

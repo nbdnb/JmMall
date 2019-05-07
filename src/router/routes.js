@@ -1,14 +1,14 @@
 import JmFooter from '../components/JmFooter'
 import Today from '../views/Today'
 import Tomorrow from '../views/Tomorrow'
+import Products from '../views/Products'
 import Search from '../views/Search'
+import Detail from '../views/Detail'
 
 const Home = () => import('../views/Home')
 const Assemble = () => import('../views/Assemble')
-const Card = () => import('../views/Card')
+const Cart = () => import('../views/Cart')
 const Mine = () => import('../views/Mine')
-// const Today = () => import('../views/Today')
-// const Tomorrow = () => import('../views/Tomorrow')
 
 export default [
   {
@@ -64,12 +64,19 @@ export default [
       isTab: true,
       title: '拼团',
       icon: '&#xe71b;'
-    }
+    },
+    children: [
+      {
+        path: ':proId',
+        name: 'products',
+        component: Products
+      }
+    ]
   }, {
-    path: '/card',
-    name: 'card',
+    path: '/cart',
+    name: 'cart',
     components: {
-      default: Card,
+      default: Cart,
       footer: JmFooter
     },
     meta: {
@@ -88,6 +95,13 @@ export default [
       isTab: true,
       title: '我的',
       icon: '&#xe720;'
+    }
+  }, {
+    path: '/detail/:id',
+    name: 'detail',
+    component: Detail,
+    meta: {
+      isTab: false
     }
   }
 ]
