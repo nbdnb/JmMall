@@ -1,6 +1,11 @@
 <template>
   <div class="detail">
     <div class="detail-xq">
+      <div class="detail-header">
+        <i>&#xe636;</i>
+        <p>{{detailData.title}}</p>
+        <i>&#xe71f;</i>
+      </div>
       <div class="swiper-container" ref="swiper">
         <div class="swiper-wrapper">
           <div
@@ -15,34 +20,38 @@
       </div>
       <div class="detail-main">
         <div class="detail-msg">
-          <p>牛仔裤女新款韩版裤子显瘦减龄背带裤百搭宽松阔腿裤女学生吊带裤</p>
-          <p>牛仔裤女新款韩版裤子显瘦减龄背带裤百搭宽松阔腿裤女学生吊带裤</p>
-          <p>牛仔裤女新款韩版裤子显瘦减龄背带裤百搭宽松阔腿裤女学生吊带裤</p>
-          <p>牛仔裤女新款韩版裤子显瘦减龄背带裤百搭宽松阔腿裤女学生吊带裤</p>
-          <p>牛仔裤女新款韩版裤子显瘦减龄背带裤百搭宽松阔腿裤女学生吊带裤</p>
-          <p>牛仔裤女新款韩版裤子显瘦减龄背带裤百搭宽松阔腿裤女学生吊带裤</p>
-          <p>牛仔裤女新款韩版裤子显瘦减龄背带裤百搭宽松阔腿裤女学生吊带裤</p>
-          <p>牛仔裤女新款韩版裤子显瘦减龄背带裤百搭宽松阔腿裤女学生吊带裤</p>
-          <p>牛仔裤女新款韩版裤子显瘦减龄背带裤百搭宽松阔腿裤女学生吊带裤</p>
-          <p>牛仔裤女新款韩版裤子显瘦减龄背带裤百搭宽松阔腿裤女学生吊带裤</p>
-          <p>牛仔裤女新款韩版裤子显瘦减龄背带裤百搭宽松阔腿裤女学生吊带裤</p>
-          <p>牛仔裤女新款韩版裤子显瘦减龄背带裤百搭宽松阔腿裤女学生吊带裤</p>
-          <p>牛仔裤女新款韩版裤子显瘦减龄背带裤百搭宽松阔腿裤女学生吊带裤</p>
+          <p>{{detailData.title}}</p>
           <p>
-            <span>49.94</span>
-            <span>月销量：1019</span>
+            <span>
+              <em>¥{{detailData.price}}</em>
+              <em>¥{{detailData.originPrice}}</em>
+            </span>
+            <span>月销量：{{detailData.saleNum}}</span>
           </p>
         </div>
         <p class="title-img">
-          <span></span>
+          <span>----- </span>
           <span>图文详情</span>
-          <span></span>
+          <span> -----</span>
+        </p>
+        <p
+          class="detail-img"
+          v-for="img in detailImg"
+          :key="img.photo.id"
+        >
+          <img :src="img.photo.url" />
         </p>
       </div>
     </div>
     <div class="detail-footer">
-      <i></i>
-      <i></i>
+      <span>
+        <i>&#xe713;</i>
+        <span>店铺</span>
+      </span>
+      <span>
+        <i>&#xe718;</i>
+        <span>购物车</span>
+      </span>
       <button>加入购物车</button>
       <button>立即购买</button>
     </div>
@@ -56,7 +65,8 @@ export default {
   name: 'detail',
   data () {
     return {
-      detailData: {}
+      detailData: {},
+      detailImg: []
     }
   },
   created () {
@@ -64,7 +74,8 @@ export default {
     this.$http.getDetails(id)
       .then(resp => {
         this.detailData = resp.detail
-        console.log(this.detailData)
+        this.detailImg = resp.detail.descContentList
+        this.detailImg.shift()
         this.$nextTick(() => {
           this.initSwiper()
         })
@@ -112,14 +123,110 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
-  .detail-xq{
+  &-xq{
     flex: 1;
     overflow-x: hidden;
+    .detail-header{
+      height: 45px;
+      padding: 0 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+      color: #787878;
+      p{
+        width: 75%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #333;
+      }
+      i{
+        font-size: 30px;
+      }
+    }
+    .detail-main{
+      padding: 10px;
+      .detail-msg{
+        p{
+          line-height: 22px;
+          font-size: 14px;
+          color: #333;
+          &:nth-child(2){
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            span{
+              em{
+                &:nth-child(1){
+                  font-size: 28px;
+                  color: #F33873;
+                }
+                &:nth-child(2){
+                  font-size: 13px;
+                  color: #666;
+                  text-decoration: line-through;
+                  margin-left: 4px;
+                }
+              }
+            }
+          }
+        }
+      }
+      .title-img{
+        text-align: center;
+        font-size: 12px;
+        color: #666;
+        margin: 20px 0;
+      }
+      .detail-img{
+        width: 100%;
+        height: 0;
+        padding-top: calc(100%*388/600);
+        position: relative;
+        img{
+          max-width: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+      }
+    }
   }
-  .detail-footer{
+  &-footer{
     width: 100%;
-    height: 45px;
-    border-top: 1px solid #dedede;
+    height: 50px;
+    border-top: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    > span{
+      width: 14%;
+      color: #bbb;
+      border-right: 1px solid #eee;
+      height: 45px;
+      text-align: center;
+      i{
+        font-size: 30px;
+      }
+      span{
+        display: block;
+        font-size: 10px;
+      }
+    }
+    > button{
+      flex: 1;
+      height: 50px;
+      border: none;
+      font-size: 14px;
+      &:nth-child(3){
+        background-color: #ffcfdf;
+        color: #fe4070;
+      }
+      &:nth-child(4){
+        background-color: #ff5593;
+        color: #fff;
+      }
+    }
   }
 }
 </style>
