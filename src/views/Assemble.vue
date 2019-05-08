@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: 'sort',
+  name: 'assemble',
   data () {
     return {
       productsList: []
@@ -27,11 +27,12 @@ export default {
       .then(resp => {
         resp.list.shift()
         this.productsList = resp.list
-        this.$nextTick(() => {
-          const { proId = resp.list[0].id } = this.$route.params
-          this.$router.push(`/assemble/${proId}`)
-          // this.$router.push(`/assemble/4`)
-        })
+        this.$nextTick()
+          .then(() => {
+            const { proId = resp.list[0].id } = this.$route.params
+            console.log(this.$route.params)
+            this.$router.push(`/assemble/${proId}`)
+          })
       })
   }
 }

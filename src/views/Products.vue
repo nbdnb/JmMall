@@ -49,11 +49,11 @@ export default {
         })
     }
   },
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
-      vm.getProductsData()
-    })
-  },
+  // beforeRouteEnter (to, from, next) {
+  //   next(vm => {
+  //     vm.getProductsData()
+  //   })
+  // },
   beforeRouteUpdate (to, from, next) {
     this.productsList = []
     this.start = 0
