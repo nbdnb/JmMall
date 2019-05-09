@@ -14,6 +14,9 @@
       :originPrice="data.originPrice"
       :saleNum="data.saleNum"
     ></JmProductItem>
+
+      <BackTop topContainer=".main"></BackTop>
+
     <div v-if="isEnd" class="nomore">没有更多了...</div>
   </div>
 </template>
@@ -47,6 +50,9 @@ export default {
           this.start = resp.items.nextIndex
           this.loading = false
         })
+    },
+    backTop () {
+      console.log(1)
     }
   },
   // beforeRouteEnter (to, from, next) {

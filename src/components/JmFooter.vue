@@ -5,6 +5,7 @@
       v-for='nav in navs'
       :key='nav.name'
       :to='nav.path'
+      :event="$route.path.includes(nav.path) ? '' : 'click'"
     >
       <span class="icon" v-html="nav.meta.icon"></span>
       <span class="title">{{nav.meta.title}}</span>

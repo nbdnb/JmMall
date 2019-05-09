@@ -2,15 +2,15 @@
   <div class="detail">
     <div class="detail-xq">
       <div class="detail-header">
-        <i>&#xe636;</i>
+        <i @click='goBack'>&#xe636;</i>
         <p>{{detailData.title}}</p>
-        <i>&#xe71f;</i>
+        <i @click="goHome">&#xe71f;</i>
       </div>
       <div class="swiper-container" ref="swiper">
         <div class="swiper-wrapper">
           <div
             class="swiper-slide"
-            v-for='data in detailData.photo'
+            v-for='data in detailBanner'
             :key="data.id"
           >
             <img :src="data.url" />
@@ -66,7 +66,8 @@ export default {
   data () {
     return {
       detailData: {},
-      detailImg: []
+      detailImg: [],
+      detailBanner: []
     }
   },
   created () {
@@ -74,6 +75,7 @@ export default {
     this.$http.getDetails(id)
       .then(resp => {
         this.detailData = resp.detail
+        this.detailBanner = resp.detail.photo
         this.detailImg = resp.detail.descContentList
         this.detailImg.shift()
         this.$nextTick(() => {
@@ -91,6 +93,12 @@ export default {
           el: '.swiper-pagination'
         }
       })
+    },
+    goBack () {
+      this.$router.back()
+    },
+    goHome () {
+      this.$router.push('/home')
     }
   }
 }
@@ -218,6 +226,7 @@ body {
       height: 50px;
       border: none;
       font-size: 14px;
+      outline: none;
       &:nth-child(3){
         background-color: #ffcfdf;
         color: #fe4070;

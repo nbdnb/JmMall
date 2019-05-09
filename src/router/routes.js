@@ -1,14 +1,15 @@
 import JmFooter from '../components/JmFooter'
-import Today from '../views/Today'
-import Tomorrow from '../views/Tomorrow'
-import Products from '../views/Products'
-import Search from '../views/Search'
-import Detail from '../views/Detail'
 
 const Home = () => import('../views/Home')
 const Assemble = () => import('../views/Assemble')
 const Cart = () => import('../views/Cart')
 const Mine = () => import('../views/Mine')
+
+const Today = () => import('../views/Today')
+const Tomorrow = () => import('../views/Tomorrow')
+const Products = () => import('../views/Products')
+const Search = () => import('../views/Search')
+const Detail = () => import('../views/Detail')
 
 export default [
   {

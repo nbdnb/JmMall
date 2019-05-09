@@ -73,6 +73,10 @@ export default {
     justify-content: space-around;
     align-items: center;
     position: relative;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 3;
     a{
       width: 300px;
       height: 30px;

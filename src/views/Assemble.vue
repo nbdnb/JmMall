@@ -30,7 +30,6 @@ export default {
         this.$nextTick()
           .then(() => {
             const { proId = resp.list[0].id } = this.$route.params
-            console.log(this.$route.params)
             this.$router.push(`/assemble/${proId}`)
           })
       })
@@ -46,6 +45,10 @@ export default {
     height: 45px;
     border-bottom: 1px solid #eee;
     overflow-y: hidden;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 3;
     ul{
       width: 300%;
       height: 45px;
