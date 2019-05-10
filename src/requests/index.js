@@ -40,3 +40,7 @@ export const getProductsList = (proId, start = 0) => {
 export const getDetails = (id) => {
   return ajax.get(`api/detail?id=${id}`)
 }
+
+export const login = ({ username, password }) => {
+  return axios.post('http://rap2api.taobao.org/app/mock/175990/api/v1/login', { username, password })
+}

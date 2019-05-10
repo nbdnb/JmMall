@@ -10,6 +10,7 @@ const Tomorrow = () => import('../views/Tomorrow')
 const Products = () => import('../views/Products')
 const Search = () => import('../views/Search')
 const Detail = () => import('../views/Detail')
+const Login = () => import('../views/Login')
 
 export default [
   {
@@ -83,7 +84,8 @@ export default [
     meta: {
       isTab: true,
       title: '购物车',
-      icon: '&#xe718;'
+      icon: '&#xe718;',
+      isAuthRequired: true
     }
   }, {
     path: '/mine',
@@ -95,7 +97,17 @@ export default [
     meta: {
       isTab: true,
       title: '我的',
-      icon: '&#xe720;'
+      icon: '&#xe720;',
+      isAuthRequired: true
+    }
+  }, {
+    path: '/login',
+    name: 'login',
+    components: {
+      default: Login
+    },
+    meta: {
+      isTab: false
     }
   }, {
     path: '/detail/:id',

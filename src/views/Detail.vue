@@ -50,15 +50,23 @@
       </span>
       <span>
         <i>&#xe718;</i>
-        <span>购物车</span>
+        <span @click='goCart'>购物车</span>
       </span>
-      <button>加入购物车</button>
+      <button
+        @click='addToCart({
+          id: detailData.id,
+          title: detailData.title,
+          price: detailData.price,
+          img: detailData.image
+        })'
+      >加入购物车</button>
       <button>立即购买</button>
     </div>
   </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import Swiper from 'swiper/dist/js/swiper.min.js'
 import 'swiper/dist/css/swiper.css'
 export default {
@@ -75,6 +83,7 @@ export default {
     this.$http.getDetails(id)
       .then(resp => {
         this.detailData = resp.detail
+        console.log(this.detailData)
         this.detailBanner = resp.detail.photo
         this.detailImg = resp.detail.descContentList
         this.detailImg.shift()
@@ -99,7 +108,13 @@ export default {
     },
     goHome () {
       this.$router.push('/home')
-    }
+    },
+    goCart () {
+      this.$router.push('/cart')
+    },
+    ...mapMutations([
+      'addToCart'
+    ])
   }
 }
 </script>

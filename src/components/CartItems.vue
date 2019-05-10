@@ -1,20 +1,24 @@
 <template>
   <div class="cartItems">
     <label class="sq-cart-item__checkbox">
-      <input type="checkbox" /><span></span>
+      <input
+        type="checkbox"
+        :checked="isChecked"
+        @change='cartIsChecked(id)'
+      /><span></span>
     </label>
     <dl>
       <dt>
-        <img src="http://img.alicdn.com/i1/2605445457/O1CN01ct7uDM1qBLqbxmF4E_!!2605445457.jpg_400x400q90.jpg" />
+        <img :src="img" />
       </dt>
       <dd>
-        <p ref="myTitle">加西妮哑光BB霜女遮瑕保湿不油腻粉底液补水学生用裸妆防水不脱妆</p>
+        <p ref="myTitle">{{title}}</p>
         <p>
-          <span>¥327</span>
+          <span>¥{{price | toFixed2}}</span>
           <span>
-            <em>-</em>
-            <em class="count">1</em>
-            <em>+</em>
+            <em @click='cartItemDecrement(id)'>-</em>
+            <em class="count">{{count}}</em>
+            <em @click='cartItemIncrement(id)'>+</em>
           </span>
         </p>
       </dd>
@@ -23,8 +27,42 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
-  name: 'cart-items'
+  name: 'cart-items',
+  props: {
+    id: {
+      type: Number,
+      required: true
+    },
+    img: {
+      type: String,
+      required: true
+    },
+    title: {
+      type: String,
+      required: true
+    },
+    price: {
+      type: Number,
+      required: true
+    },
+    count: {
+      type: Number,
+      default: 0
+    },
+    isChecked: {
+      type: Boolean,
+      default: true
+    }
+  },
+  methods: {
+    ...mapMutations([
+      'cartItemIncrement',
+      'cartItemDecrement',
+      'cartIsChecked'
+    ])
+  }
 }
 </script>
 

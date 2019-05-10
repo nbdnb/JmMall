@@ -9,11 +9,14 @@
     >
       <span class="icon" v-html="nav.meta.icon"></span>
       <span class="title">{{nav.meta.title}}</span>
+      <span class="totalCount" v-show="nav.path === '/cart'">{{totalCartCount | lt100}}</span>
+
     </router-link>
   </ul>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import routes from '@/router/routes'
 export default {
   name: 'jm-header',
@@ -21,6 +24,11 @@ export default {
     return {
       navs: routes.filter(route => route.meta.isTab === true)
     }
+  },
+  computed: {
+    ...mapGetters([
+      'totalCartCount'
+    ])
   }
 }
 </script>
@@ -35,7 +43,8 @@ export default {
       width: 25%;
       height: 50px;
       text-align: center;
-          color: #787878;
+      color: #787878;
+      position: relative;
       span{
         display: block;
         &.icon{
@@ -48,6 +57,17 @@ export default {
           height: 18px;
           line-height: 18px;
           font-size: 12px;
+        }
+        &.totalCount{
+          position: absolute;
+          background-color: #fe4070;
+          color: #fff;
+          top: -4px;
+          left: 55%;
+          padding: 0 3px;
+          line-height: 18px;
+          font-size: 12px;
+          border-radius: 20px;
         }
       }
       &.router-link-exact-active,
