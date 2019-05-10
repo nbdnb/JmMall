@@ -3,7 +3,7 @@
     <div class="mine-header">
       <div class="mine-header-top">
         <i @click='goBack'>&#xe636;</i>
-        <p>我的聚美</p>
+        <p>我的JM</p>
         <i @click="goHome">&#xe71f;</i>
       </div>
       <i>&#xe7ad;</i>
@@ -56,7 +56,7 @@
       <div class="mymoney">
         <span>现金券</span>
         <span>红包</span>
-        <span>聚美金额</span>
+        <span>JM金额</span>
         <span>礼品卡</span>
       </div>
       <div class="odder">
