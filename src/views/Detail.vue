@@ -51,6 +51,7 @@
       <span>
         <i>&#xe718;</i>
         <span @click='goCart'>购物车</span>
+        <span class="totalCount">{{totalCartCount | lt100}}</span>
       </span>
       <button
         @click='addToCart({
@@ -66,7 +67,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 import Swiper from 'swiper/dist/js/swiper.min.js'
 import 'swiper/dist/css/swiper.css'
 export default {
@@ -83,7 +84,6 @@ export default {
     this.$http.getDetails(id)
       .then(resp => {
         this.detailData = resp.detail
-        console.log(this.detailData)
         this.detailBanner = resp.detail.photo
         this.detailImg = resp.detail.descContentList
         this.detailImg.shift()
@@ -114,6 +114,11 @@ export default {
     },
     ...mapMutations([
       'addToCart'
+    ])
+  },
+  computed: {
+    ...mapGetters([
+      'totalCartCount'
     ])
   }
 }
@@ -228,12 +233,24 @@ body {
       border-right: 1px solid #eee;
       height: 45px;
       text-align: center;
+      position: relative;
       i{
         font-size: 30px;
       }
       span{
         display: block;
         font-size: 10px;
+        &.totalCount{
+          position: absolute;
+          background-color: #fe4070;
+          color: #fff;
+          top: -4px;
+          left: 60%;
+          padding: 0 3px;
+          line-height: 18px;
+          font-size: 12px;
+          border-radius: 20px;
+        }
       }
     }
     > button{

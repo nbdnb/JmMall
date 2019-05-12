@@ -11,6 +11,7 @@ const Products = () => import('../views/Products')
 const Search = () => import('../views/Search')
 const Detail = () => import('../views/Detail')
 const Login = () => import('../views/Login')
+const Register = () => import('../views/Register')
 
 export default [
   {
@@ -105,6 +106,15 @@ export default [
     name: 'login',
     components: {
       default: Login
+    },
+    meta: {
+      isTab: false
+    }
+  }, {
+    path: '/register',
+    name: 'register',
+    components: {
+      default: Register
     },
     meta: {
       isTab: false

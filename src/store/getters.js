@@ -24,5 +24,8 @@ export default {
   },
   isLogin (state) {
     return Boolean(state.userInfo.token)
+  },
+  allCartChecked (state) {
+    return state.cart.every(item => item.isChecked === true)
   }
 }

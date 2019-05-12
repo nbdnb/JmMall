@@ -12,9 +12,9 @@
     >
       <div class="search-mask" v-show="isShow" ref="mysearch">
         <div class="search-header">
-          <i class="backhome">&#xe636;</i>
+          <i class="backhome" @click="goBack">&#xe636;</i>
           <label>
-            <i @click="goBack">&#xe71c;</i>
+            <i>&#xe71c;</i>
             <input type="text"
               placeholder="搜索商品 分类 功效"
               @keyup="searchShowList"
@@ -28,6 +28,7 @@
           <li
             v-for="search in searchList"
             :key="search.id"
+            @click='backtoResult(search.id)'
           >
             <span v-if="isSearchShow">{{search.name}}</span>
             <span v-else>{{search.title}}</span>
@@ -60,6 +61,7 @@ export default {
     toSearch () {
       if (this.value !== '') {
         this.$router.push(`/search?value=${this.value}`)
+        this.value = ''
         this.isShow = false
       }
     },
@@ -87,8 +89,14 @@ export default {
     },
     goBack () {
       this.isShow = false
-      // 未完成此功能
-      // this.$refs.mysearch.style.width = "80%"
+    },
+    backtoResult (id) {
+      if (id < 100) {
+        this.$router.push(`/assemble/${id}`)
+      } else {
+        this.$router.push(`/detail/${id}`)
+      }
+      this.isShow = false
     }
   }
 }

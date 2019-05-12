@@ -8,7 +8,7 @@
       </div>
       <i>&#xe7ad;</i>
       <p>
-        <span>注册</span>
+        <span @click='goRegister'>注册</span>
         <span>|</span>
         <span @click='goLogin'>登录</span>
       </p>
@@ -86,7 +86,7 @@
           <i>&#xe637;</i>
         </p>
       </div>
-      <div class="odder nomargintop">
+      <div class="odder nomargintop" @click='exitLogin'>
         <p>
           <i>&#xe62b;</i>
           <span>退出登录</span>
@@ -109,6 +109,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
   name: 'mine',
   methods: {
@@ -120,7 +121,13 @@ export default {
     },
     goLogin () {
       this.$router.push('/login')
-    }
+    },
+    goRegister () {
+      this.$router.push('/register')
+    },
+    ...mapMutations([
+      'exitLogin'
+    ])
   }
 }
 </script>

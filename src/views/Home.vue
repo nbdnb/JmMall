@@ -5,7 +5,7 @@
         <i>&#xe71c;</i>
         <span>搜索商品 分类 功效</span>
       </a>
-      <i>&#xe684;</i>
+      <i @click='show()'>&#xe684;</i>
     </div>
     <div class="swiper-container" ref="swiper">
       <div class="swiper-wrapper">

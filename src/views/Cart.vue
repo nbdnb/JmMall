@@ -33,7 +33,11 @@
       <div class="cart-footer">
         <div class="cart-countNum">
           <label class="sq-cart-item__checkbox">
-            <input type="checkbox" /><span></span>
+            <input
+              type="checkbox"
+              :checked='allCartChecked'
+              @change='toggleAllChecked'
+            /><span></span>
             <em>全选</em>
           </label>
           <span>
@@ -52,7 +56,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
 import CartItems from '@/components/CartItems'
 export default {
   name: 'card',
@@ -65,7 +69,10 @@ export default {
     },
     goHome () {
       this.$router.push('/home')
-    }
+    },
+    ...mapMutations([
+      'toggleAllChecked'
+    ])
   },
   computed: {
     ...mapState([
@@ -74,7 +81,8 @@ export default {
     ...mapGetters([
       'CartCountChecked',
       'CartPriceChecked',
-      'isCartEmpty'
+      'isCartEmpty',
+      'allCartChecked'
     ])
   }
 }

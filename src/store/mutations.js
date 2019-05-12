@@ -45,5 +45,25 @@ export default {
   },
   toggleIsLogging (state) {
     state.isLoggingIn = !state.isLoggingIn
+  },
+  toggleAllChecked (state) {
+    if (state.cart.every(item => item.isChecked === true)) {
+      state.cart = state.cart.map(item => {
+        item.isChecked = false
+        return item
+      })
+    } else {
+      state.cart = state.cart.map(item => {
+        item.isChecked = true
+        return item
+      })
+    }
+  },
+  exitLogin () {
+    if (window.localStorage.getItem('jm-user-info') !== null) {
+      if (confirm('确定要退出吗？')) {
+        window.localStorage.removeItem('jm-user-info')
+      }
+    }
   }
 }

@@ -2,21 +2,18 @@
   <div class="login">
     <div class="login-header">
       <i @click='goBack'>&#xe636;</i>
-      <p>登录</p>
-      <em @click='goToRegister'>注册</em>
+      <p>注册</p>
+      <em @click='goToLogin'>登录</em>
     </div>
     <div class="login-info">
       <input type="text" placeholder="请输入用户名" v-model="username">
       <input type="password" placeholder="请输入密码" v-model="password">
-      <label for="rememberme"><input type="checkbox" id="rememberme">记住我</label>
-      <button @click="doLogin">登录</button>
+      <button @click="doRegister">注册</button>
     </div>
   </div>
 </template>
 
 <script>
-import { Indicator } from 'mint-ui'
-import { mapMutations, mapGetters, mapState } from 'vuex'
 import Joi from '@hapi/joi'
 const schema = Joi.object().keys({
   username: Joi.string().alphanum().min(3).max(30).required().error(() => '用户名不正确'),
@@ -30,55 +27,21 @@ export default {
       password: ''
     }
   },
-  computed: {
-    ...mapGetters([
-      'isLogin'
-    ]),
-    ...mapState([
-      'isLoggingIn'
-    ])
-  },
-  watch: {
-    isLogin () {
-      if (this.isLogin === true) {
-        const { from = '/home' } = this.$route.params
-        this.$router.push(from)
-      }
-    }
-  },
   methods: {
     goBack () {
       this.$router.back()
     },
-    goToRegister () {
-      this.$router.push('/register')
+    goToLogin () {
+      this.$router.push('/login')
     },
-    ...mapMutations([
-      'loginSuccess',
-      'toggleIsLogging'
-    ]),
-    doLogin () {
+    doRegister () {
       const { username, password } = this
       Joi.validate({ username, password }, schema, (err, value) => {
         console.log(err, value)
         if (err) {
           this.$toast('用户名或密码不正确')
         } else {
-          this.toggleIsLogging()
-          Indicator.open({
-            text: '加载中...',
-            spinnerType: 'fading-circle'
-          })
-          this.$http.login({ username, password })
-            .then(resp => {
-              this.toggleIsLogging()
-              Indicator.close()
-              if (resp.data.code === 200) {
-                this.loginSuccess(resp.data.data)
-              } else {
-                this.$toast('用户名或密码不正确')
-              }
-            })
+          this.$router.push('/login')
         }
       })
     }
